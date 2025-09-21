@@ -4,7 +4,7 @@ This document presents the logical evolution of the InkWell platform's architect
 
 ---
 
-#### **Stage 1: Initial Monolithic Service**
+#### **Milestone 1: Initial Monolithic Service**
 
 This is the baseline architecture, designed to be the simplest possible system that delivers core value. It establishes the foundational components and their primary relationships.
 
@@ -31,9 +31,9 @@ C4Component
 
 ---
 
-#### **Stage 2: Production-Grade Persistence**
+#### **Milestone 2: Production-Grade Persistence**
 
-This stage addresses the need for a reliable and scalable database, a critical step towards production readiness. While this is primarily a physical change, it is reflected in the logical diagram through updated component descriptions to communicate the new, robust nature of our data store.
+This milestone addresses the need for a reliable and scalable database, a critical step towards production readiness. While this is primarily a physical change, it is reflected in the logical diagram through updated component descriptions to communicate the new, robust nature of our data store.
 
 *   **Key Architectural Changes:**
     *   The **PostgreSQL Database** component's technology is now specified as "Amazon RDS."
@@ -56,7 +56,7 @@ C4Component
 
 ---
 
-#### **Stage 3: Secure Entry Point with API Gateway**
+#### **Milestone 3: Secure Entry Point with API Gateway**
 
 To secure the system and create a managed entry point, an API Gateway is introduced. This is a fundamental change to how clients interact with the system.
 
@@ -84,7 +84,7 @@ C4Component
 
 ---
 
-#### **Stage 4: Externalize User Management (First Decomposition)**
+#### **Milestone 4: Externalize User Management (First Decomposition)**
 
 This is the first major step in decomposing the monolith, applying the "Principle of State Encapsulation." User management is extracted into its own dedicated service.
 
@@ -124,7 +124,7 @@ C4Component
 
 ---
 
-#### **Stage 5: Implement Asynchronous Post Processing**
+#### **Milestone 5: Implement Asynchronous Post Processing**
 
 To improve user-facing performance, slow operations are moved to the background. This introduces our first asynchronous workflow.
 
@@ -169,7 +169,7 @@ C4Component
 
 ---
 
-#### **Stage 6: Introduce a Caching Layer**
+#### **Milestone 6: Introduce a Caching Layer**
 
 To reduce read load on the database and improve latency for popular content, a caching layer is implemented.
 
@@ -214,7 +214,7 @@ C4Component
 
 ---
 
-#### **Stage 7: Decouple Notifications with an Event Bus**
+#### **Milestone 7: Decouple Notifications with an Event Bus**
 
 To create a more scalable and resilient system, notifications are fully decoupled from the post creation process using a "fire-and-forget" event pattern.
 
@@ -269,7 +269,7 @@ C4Component
 
 ---
 
-#### **Stage 8: Add Object Storage for User-Uploaded Media**
+#### **Milestone 8: Add Object Storage for User-Uploaded Media**
 
 To handle large file uploads in a scalable and cost-effective way, a dedicated object storage service is integrated using a "pre-signed URL" pattern.
 
@@ -319,7 +319,7 @@ C4Component
     Rel(notificationService, eventBus, "Consumes events")
 ```
 
-#### **Stage 9: Implement Comprehensive Observability Stack**
+#### **Milestone 9: Implement Comprehensive Observability Stack**
 
 To operate the increasingly complex distributed system effectively, a dedicated observability stack is introduced as a cross-cutting concern.
 
@@ -374,7 +374,7 @@ C4Component
 
 ---
 
-#### **Stage 10: Harden Security and Externalize Configuration**
+#### **Milestone 10: Harden Security and Externalize Configuration**
 
 In the final step of our initial roadmap, we introduce a dedicated secret management system to complete our production-readiness posture.
 
@@ -427,7 +427,7 @@ This document presents the physical deployment evolution of the InkWell platform
 
 ---
 
-#### **Stage 1: The Simplest Possible Thing (Co-located Containers)**
+#### **Milestone 1: The Simplest Possible Thing (Co-located Containers)**
 
 This is the initial physical deployment, designed for speed of development and simplicity. It co-locates all components on a single virtual server.
 
@@ -463,9 +463,9 @@ graph TD
 
 ---
 
-#### **Stage 2: Production-Grade Persistence (Managed Database)**
+#### **Milestone 2: Production-Grade Persistence (Managed Database)**
 
-This stage makes the system's data layer robust and reliable by moving it to a managed service.
+This milestone makes the system's data layer robust and reliable by moving it to a managed service.
 
 *   **Key Infrastructure Components & Topology:**
     *   The **PostgreSQL Container** is removed from the EC2 instance.
@@ -505,7 +505,7 @@ graph TD
 
 ---
 
-#### **Stage 3: Secure Entry Point (API Gateway)**
+#### **Milestone 3: Secure Entry Point (API Gateway)**
 
 The system's security posture is hardened by placing a managed API Gateway at the network edge.
 
@@ -551,7 +551,7 @@ graph TD
 
 ---
 
-#### **Stage 4: First Decomposition (Co-located Microservices)**
+#### **Milestone 4: First Decomposition (Co-located Microservices)**
 
 The monolith is broken apart. For pragmatic reasons, the new service is initially co-located on the same physical host.
 
@@ -603,7 +603,7 @@ graph TD
 
 ---
 
-#### **Stage 5: Asynchronous Processing (Job Queue)**
+#### **Milestone 5: Asynchronous Processing (Job Queue)**
 
 A background job system is introduced to improve API responsiveness.
 
@@ -662,12 +662,12 @@ graph TD
 
 ---
 
-#### **Stage 6: Performance Optimization (Caching Layer)**
+#### **Milestone 6: Performance Optimization (Caching Layer)**
 
 To reduce database load, the existing Redis cluster is repurposed to also serve as a high-speed cache.
 
 *   **Key Infrastructure Components & Topology:**
-    *   No new physical components are added in this stage.
+    *   No new physical components are added in this milestone.
 *   **Data Flow:**
     *   The read path for the **Post Service Container** becomes more sophisticated:
         1.  It first makes a **Cache Check** call to the **Redis Cluster**.
@@ -726,7 +726,7 @@ graph LR
 
 ---
 
-#### **Stage 7: Decoupling with an Event Bus**
+#### **Milestone 7: Decoupling with an Event Bus**
 
 A true event-driven pattern is introduced for notifications, making the system more scalable and resilient.
 
@@ -794,7 +794,7 @@ graph LR
 
 ---
 
-#### **Stage 8: Scalable Media Storage (Object Storage)**
+#### **Milestone 8: Scalable Media Storage (Object Storage)**
 
 A best-practice solution for handling large file uploads is implemented, offloading the work from application servers.
 
@@ -858,7 +858,7 @@ graph LR
 
 ---
 
-#### **Stage 9: Comprehensive Observability (Monitoring Stack)**
+#### **Milestone 9: Comprehensive Observability (Monitoring Stack)**
 
 A dedicated stack is introduced to monitor, log, and trace the behavior of the distributed system.
 
@@ -923,7 +923,7 @@ graph LR
 
 ---
 
-#### **Stage 10: Hardened Security (Secret Management)**
+#### **Milestone 10: Hardened Security (Secret Management)**
 
 The final production-readiness step is to implement a secure, centralized system for managing application secrets.
 
